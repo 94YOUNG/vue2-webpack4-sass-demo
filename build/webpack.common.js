@@ -45,7 +45,11 @@ module.exports = {
     }]
   },
   plugins: [new HtmlWebpackPlugin({
-    title: 'Webpack App'
+    title: 'Webpack App',
+    filename: 'index.html',
+    inject: true,
+    hash: true,
+    chunksSortMode: 'none'
   }, new CleanWebpackPlugin(['dist'])), new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin(), new VueLoaderPlugin(), new MiniCssExtractPlugin({
     filename: 'style.css'
   })],
