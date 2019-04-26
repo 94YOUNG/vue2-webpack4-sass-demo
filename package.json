@@ -8,9 +8,10 @@
     "lint": "vue-cli-service lint",
     "webpack": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --open",
-    "hot": "webpack-dev-server --hotOnly",
-    "dev-serve": "node server.js"
+    "start": "webpack-dev-server --open --config build/webpack.dev.js",
+    "hot": "webpack-dev-server --hotOnly --config build/webpack.dev.js",
+    "dev-serve": "node server.js",
+    "build-webpack": "webpack --config build/webpack.prod.js"
   },
   "dependencies": {
     "core-js": "^2.6.5",
@@ -40,6 +41,7 @@
     "sass": "^1.17.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.21",

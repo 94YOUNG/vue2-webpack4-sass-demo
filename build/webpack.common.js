@@ -14,7 +14,7 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    filename: '[chunkhash].bound.js',
+    filename: '[hash].bound.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
@@ -49,11 +49,7 @@ module.exports = {
   }, new CleanWebpackPlugin(['dist'])), new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin(), new VueLoaderPlugin(), new MiniCssExtractPlugin({
     filename: 'style.css'
   })],
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true
-  },
+
   optimization: {
     splitChunks: { chunks: 'initial' }
   }
