@@ -14,7 +14,7 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    filename: '[hash].bound.js',
+    filename: '[name].[hash].bound.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
