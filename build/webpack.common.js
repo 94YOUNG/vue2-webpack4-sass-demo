@@ -14,7 +14,7 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    filename: '[name].[hash].bound.js',
+    filename: '[name].[hash:8].bound.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
@@ -26,7 +26,12 @@ module.exports = {
       }, 'sass-loader']
     }, {
       test: /\.(png|svg|jpg|gif|jpeg)$/,
-      use: ['file-loader']
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 8192
+        }
+      }]
     }, {
       test: /\.(woff|woff2|eot|ttf|otf)$/,
       use: [
@@ -44,15 +49,21 @@ module.exports = {
       ]
     }]
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: 'Webpack App',
-    filename: 'index.html',
-    inject: true,
-    hash: true,
-    chunksSortMode: 'none'
-  }, new CleanWebpackPlugin(['dist'])), new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin(), new VueLoaderPlugin(), new MiniCssExtractPlugin({
-    filename: 'style.css'
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      /*      title: 'Webpack App',
+            filename: 'index.html',
+            template: './public/index.html',
+            inject: true,
+            hash: true,// 清缓存用
+            chunksSortMode: 'none', */
+    }, new CleanWebpackPlugin(['dist'])),
+    // new webpack.NamedModulesPlugin(),//给打包的模块加上姓名
+    new webpack.HotModuleReplacementPlugin(),
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'style.css'
+    })],
 
   optimization: {
     splitChunks: { chunks: 'initial' }

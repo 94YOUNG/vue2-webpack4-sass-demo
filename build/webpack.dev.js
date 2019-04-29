@@ -3,7 +3,7 @@
  *Created by yd on 2019-04-23
  */
 const merge = require('webpack-merge')
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const webpackcommonConfig = require('./webpack.common')
 
 module.exports = merge(webpackcommonConfig, {
@@ -12,7 +12,9 @@ module.exports = merge(webpackcommonConfig, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
+    open: true, // 自动打开浏览器
+    compress: true// 启动服务器压缩
   },
   module: {
     rules: [{
@@ -23,9 +25,5 @@ module.exports = merge(webpackcommonConfig, {
       use: ['vue-style-loader', 'css-loader']
     }]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    })
-  ]
+  plugins: []
 })
