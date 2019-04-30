@@ -23,6 +23,15 @@ module.exports = {
       test: /\.css$/,
       use: ['vue-style-loader', 'css-loader', {
         loader: MiniCssExtractPlugin.loader
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          plugins: [
+            require('autoprefixer'), {
+              sourceMap: true
+            }
+          ]
+        }
       }, 'sass-loader']
     }, {
       test: /\.(png|svg|jpg|gif|jpeg)$/,
