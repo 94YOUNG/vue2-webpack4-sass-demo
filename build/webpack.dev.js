@@ -5,7 +5,6 @@
 const merge = require('webpack-merge')
 const webpack = require('webpack')
 const webpackcommonConfig = require('./webpack.common')
-const path = require('path')
 
 module.exports = merge(webpackcommonConfig, {
   mode: 'development', // 不压缩代码，加快编译速度
@@ -26,14 +25,6 @@ module.exports = merge(webpackcommonConfig, {
   },
   module: {
     rules: [
-      /*      {
-            test: /\.vue$/,
-            use: ['vue-loader']
-          },*/
-      /*      {
-            test: /\.css$/,
-            use: ['vue-style-loader', 'css-loader']
-          }*/
     ]
   },
   plugins: [

@@ -19,34 +19,39 @@ module.exports = merge(webpackcommonConfig, {
     }, {
       test: /\.css$/,
       use: [
-        {
-          loader: MiniCssExtractPlugin.loader
-        },
+        MiniCssExtractPlugin.loader,
         'css-loader'
       ]
-    }, {
+    },
+    {
       test: /\.scss/,
-      use: ['style-loader', 'css-loader', 'sass-loader']
-    }]
+      use:
+          ['style-loader', 'css-loader', 'sass-loader']
+    }
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css'
     })
   ],
-  optimization: {
-    // minimize: true,//压缩代码，效果和UglifyJSPlugin一样，production模式已经默认设置
-    splitChunks: {//分割公共代码及依赖库
-      cacheGroups: {
-        commons: {
-          chunks: 'initial',
-          minChunks: 2,
-          maxInitialRequests: 5,
-          minSize: 0
-        }
+  optimization:
+    {
+      // minimize: true,//压缩代码，效果和UglifyJSPlugin一样，production模式已经默认设置
+      splitChunks: {// 分割公共代码及依赖库
+        cacheGroups: {
+          commons: {
+            chunks: 'initial',
+            minChunks:
+              2,
+            maxInitialRequests:
+              5,
+            minSize:
+              0
+          }
+        },
+        chunks: 'all'
       },
-      chunks: 'all'
-    },
-    runtimeChunk: 'single'//分离webpack的运行文件
-  }
+      runtimeChunk: 'single'// 分离webpack的运行文件
+    }
 })

@@ -7,7 +7,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 // const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: {
@@ -16,8 +15,8 @@ module.exports = {
   resolve: {
     extensions: ['.json', '.js', '.vue', '*'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',//完整版（编译器+运行时）ES Module (基于构建工具使用)，默认只有运行时，会报不能处理template
-      '@': path.resolve(__dirname, '../src')//处理路径问题
+      'vue$': 'vue/dist/vue.esm.js', // 完整版（编译器+运行时）ES Module (基于构建工具使用)，默认只有运行时，会报不能处理template
+      '@': path.resolve(__dirname, '../src')// 处理路径问题
     }
   },
   output: {
@@ -33,22 +32,52 @@ module.exports = {
           'vue-loader'
         ]
       }, {
-        test: /\.(css|scss)$/,
-        use: ['vue-style-loader', 'css-loader', /*{
-          loader: MiniCssExtractPlugin.loader
-        },*/
-          /*          {
-                    loader: 'postcss-loader',
-                    options: {
-                      plugins: [
-                        require('autoprefixer'), {
-                          sourceMap: true
-                        }
-                      ]
-                    }
-                  },*/
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: [
+                require('autoprefixer')({
+                  browsers: ['last 10 versions']
+                })
+              ]
+            }
+          }
+        ]
+      },
+      // 普通的 `.scss` 文件和 `*.vue` 文件中的
+      // `<style lang="scss">` 块都应用它
+      {
+        test: /\.scss$/,
+        use: ['vue-style-loader', 'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: [
+                require('autoprefixer')({
+                  browsers: ['last 10 versions']
+                })
+              ]
+            }
+          },
           'sass-loader']
       }, {
+        test: /\.sass$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              indentedSyntax: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.(png|svg|jpg|gif|jpeg)$/,
         use: [{
           loader: 'url-loader',
@@ -72,8 +101,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Development',
-      template: 'public/index.html', //指定要打包的html路径和文件名
-      showErrors: true,//webpack 编译出现错误
+      template: 'public/index.html', // 指定要打包的html路径和文件名
+      showErrors: true// webpack 编译出现错误
       /*      title: 'Webpack App',
             filename: 'index.html',
             template: './public/index.html',
@@ -83,11 +112,7 @@ module.exports = {
     }),
 
     // new webpack.NamedModulesPlugin(),//给打包的模块加上姓名
-
-    new VueLoaderPlugin(),
-    /*    new MiniCssExtractPlugin({
-          filename: 'style.css'
-        })*/
+    new VueLoaderPlugin()
   ],
 
   optimization: {
