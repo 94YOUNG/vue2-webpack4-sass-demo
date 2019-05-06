@@ -4,7 +4,7 @@
  */
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -59,6 +59,7 @@ module.exports = {
     }]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       /*      title: 'Webpack App',
             filename: 'index.html',
@@ -66,9 +67,10 @@ module.exports = {
             inject: true,
             hash: true,// 清缓存用
             chunksSortMode: 'none', */
-    }, new CleanWebpackPlugin(['dist'])),
+    }),
+
     // new webpack.NamedModulesPlugin(),//给打包的模块加上姓名
-    new webpack.HotModuleReplacementPlugin(),
+
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.css'

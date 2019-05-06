@@ -3,7 +3,7 @@
  *Created by yd on 2019-04-23
  */
 const merge = require('webpack-merge')
-// const webpack = require('webpack')
+const webpack = require('webpack')
 const webpackcommonConfig = require('./webpack.common')
 
 module.exports = merge(webpackcommonConfig, {
@@ -32,5 +32,7 @@ module.exports = merge(webpackcommonConfig, {
       use: ['vue-style-loader', 'css-loader']
     }]
   },
-  plugins: []
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 })

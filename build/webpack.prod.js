@@ -9,6 +9,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = merge(webpackcommonConfig, {
   mode: 'production',
+  output: {
+    filename: '[name].[chunkhash:8].bound.js'
+  },
   devtool: 'source-map',
   module: {
     rules: [{
