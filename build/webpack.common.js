@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 // const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   entry: {
@@ -33,7 +35,11 @@ module.exports = {
         ]
       }, {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader',
+        use: [process.env.NODE_ENV !== 'production' ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1 }
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -51,7 +57,11 @@ module.exports = {
       // `<style lang="scss">` 块都应用它
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader',
+        use: [process.env.NODE_ENV !== 'production' ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1 }
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -67,7 +77,7 @@ module.exports = {
       }, {
         test: /\.sass$/,
         use: [
-          'vue-style-loader',
+          process.env.NODE_ENV !== 'production' ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',

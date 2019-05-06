@@ -5,6 +5,7 @@
 const merge = require('webpack-merge')// 合并配置
 const webpackcommonConfig = require('./webpack.common')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = merge(webpackcommonConfig, {
   mode: 'production',
@@ -13,26 +14,12 @@ module.exports = merge(webpackcommonConfig, {
   },
   devtool: 'source-map',
   module: {
-    rules: [{
-      test: /\.vue$/,
-      use: ['vue-loader']
-    }, {
-      test: /\.css$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        'css-loader'
-      ]
-    },
-    {
-      test: /\.scss/,
-      use:
-          ['style-loader', 'css-loader', 'sass-loader']
-    }
-    ]
+    rules: []
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'style.css'
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
     })
   ],
   optimization:
@@ -48,6 +35,12 @@ module.exports = merge(webpackcommonConfig, {
               5,
             minSize:
               0
+          },
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
           }
         },
         chunks: 'all'
