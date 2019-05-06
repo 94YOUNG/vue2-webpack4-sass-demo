@@ -3,7 +3,6 @@
  *Created by yd on 2019-04-23
  */
 const merge = require('webpack-merge')// 合并配置
-const webpack = require('webpack')
 const webpackcommonConfig = require('./webpack.common')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -37,7 +36,7 @@ module.exports = merge(webpackcommonConfig, {
   ],
   optimization: {
     // minimize: true,//压缩代码，效果和UglifyJSPlugin一样，production模式已经默认设置
-    splitChunks: {
+    splitChunks: {//分割公共代码及依赖库
       cacheGroups: {
         commons: {
           chunks: 'initial',
@@ -48,6 +47,6 @@ module.exports = merge(webpackcommonConfig, {
       },
       chunks: 'all'
     },
-    runtimeChunk: 'single'
+    runtimeChunk: 'single'//分离webpack的运行文件
   }
 })
