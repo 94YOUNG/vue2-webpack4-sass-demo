@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
